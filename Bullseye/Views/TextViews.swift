@@ -38,6 +38,30 @@ struct SliderLabelText: View {
             .bold()
             .font(.body)
             .foregroundColor(Color("TextColor"))
+            .frame(width: 35.0)
+    }
+}
+
+struct LabelText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .fontWeight(.semibold)
+            .font(.caption)
+            .foregroundColor(Color("TextColor"))
+            .kerning(1.5)
+    }
+}
+
+
+struct RoundRectText: View {
+    var numberText: String
+    var body: some View {
+        Text(numberText)
+            .bold()
+            .font(.title2)
+            .kerning(-0.2)
+            .foregroundColor(Color("TextColor"))
     }
 }
 
@@ -45,6 +69,9 @@ struct TextViews_Previews: PreviewProvider {
     static var previews: some View {
         InstructionText(text: "Instructions")
         BigNumberText(number: 50)
-        SliderLabelText(text: "1")
+        SliderLabelText(text: "2")
+        LabelText(text: "Round")
+        RoundRectText(numberText: "20")
+   
     }
 }

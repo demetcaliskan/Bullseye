@@ -13,8 +13,7 @@ struct ContentView: View {
     @State private var game = Game()
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
-                .edgesIgnoringSafeArea(.all)
+            BackgroundView(game: $game)
             VStack {
                 InstructionsView(game: $game)
                 SliderView(value: $sliderValue).padding()
@@ -70,6 +69,9 @@ struct HitMeButton: View {
         )
         .foregroundColor(Color.white)
         .cornerRadius(21.0)
+        .overlay(
+            RoundedRectangle(cornerRadius: 21.0).strokeBorder(Color.white, lineWidth: 2.0)
+        )
         .alert("Hello there!", isPresented: $alertIsVisible) {
             Button("Awesome!") {}
         } message: {
