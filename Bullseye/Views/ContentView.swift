@@ -51,7 +51,9 @@ struct HitMeButton: View {
     @Binding var alertIsVisible : Bool
     @Binding var sliderValue : Double
     @Binding var game : Game
+
     var body: some View {
+        let roundedValue = Int(sliderValue.rounded())
         Button(action: {
             alertIsVisible = true
         }) {
@@ -73,9 +75,10 @@ struct HitMeButton: View {
             RoundedRectangle(cornerRadius: 21.0).strokeBorder(Color.white, lineWidth: 2.0)
         )
         .alert("Hello there!", isPresented: $alertIsVisible) {
-            Button("Awesome!") {}
+            Button("Awesome!") {
+                game.startNewRound(points: game.points(sliderValue: roundedValue))
+            }
         } message: {
-            let roundedValue = Int(sliderValue.rounded())
             Text("The slider's value is: \(roundedValue).\n" +
                  "You scored \(game.points(sliderValue: (roundedValue))) points this round.")
         }
