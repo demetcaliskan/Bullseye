@@ -18,7 +18,14 @@ struct ContentView: View {
                 InstructionsView(game: $game).padding(.bottom, 100)
                 HitMeButton(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
             }
-            SliderView(value: $sliderValue).padding()
+            if (alertIsVisible) {
+                PointsView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
+                    .transition(.scale)
+            } else {
+                SliderView(value: $sliderValue).padding()
+                    .transition(.scale)
+            }
+          
         }
     }
 }
@@ -52,9 +59,10 @@ struct HitMeButton: View {
     @Binding var game : Game
 
     var body: some View {
-        let roundedValue = Int(sliderValue.rounded())
         Button(action: {
-            alertIsVisible = true
+            withAnimation {
+                alertIsVisible = true
+            }
         }) {
             Text(("Hit me").uppercased())
                 .bold()
@@ -69,18 +77,10 @@ struct HitMeButton: View {
             }
         )
         .foregroundColor(Color.white)
-        .cornerRadius(21.0)
+        .cornerRadius(Constants.General.roundRectCornerRadius)
         .overlay(
-            RoundedRectangle(cornerRadius: 21.0).strokeBorder(Color.white, lineWidth: 2.0)
+            RoundedRectangle(cornerRadius: Constants.General.roundRectCornerRadius).strokeBorder(Color.white, lineWidth: Constants.General.strokeWidth)
         )
-        .alert("Hello there!", isPresented: $alertIsVisible) {
-            Button("Awesome!") {
-                game.startNewRound(points: game.points(sliderValue: roundedValue))
-            }
-        } message: {
-            Text("The slider's value is: \(roundedValue).\n" +
-                 "You scored \(game.points(sliderValue: (roundedValue))) points this round.")
-        }
     }
 }
 

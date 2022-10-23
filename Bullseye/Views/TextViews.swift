@@ -65,6 +65,33 @@ struct RoundRectText: View {
     }
 }
 
+struct BodyText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            .lineSpacing(5.0)
+            .multilineTextAlignment(.center)
+            .foregroundColor(Color("TextColor"))
+    }
+}
+
+struct ButtonText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.title2)
+            .bold()
+            .multilineTextAlignment(.center)
+            .foregroundColor(Color.white)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.accentColor)
+            .cornerRadius(12.0)
+    }
+}
+
 struct TextViews_Previews: PreviewProvider {
     static var previews: some View {
         InstructionText(text: "Instructions")
@@ -72,6 +99,7 @@ struct TextViews_Previews: PreviewProvider {
         SliderLabelText(text: "2")
         LabelText(text: "Round")
         RoundRectText(numberText: "20")
-   
+        BodyText(text: "You Scored 200 Points")
+        ButtonText(text: "Start New Round")
     }
 }
