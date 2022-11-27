@@ -47,10 +47,25 @@ struct RoundedTextViewStroked: View {
     }
 }
 
+struct RoundedTextView: View {
+    let text: String
+    var body: some View {
+        ZStack {
+            ScoreText(scoreText: text)
+                .foregroundColor(Color("TextColor"))
+        }
+        .frame(width:Constants.Leaderboard.leaderboardIndexSize, height: Constants.Leaderboard.leaderboardIndexSize)
+        .overlay {
+            Circle().strokeBorder(Color("LeaderboardRowColor"), lineWidth: Constants.General.strokeWidth)
+        }
+    }
+}
+
 struct RoundedViews_Previews: PreviewProvider {
     static var previews: some View {
         RoundedImageViewStroked(systemName: "arrow.counterclockwise")
         RoundedImageViewFilled(systemName: "list.dash")
         RoundedTextViewStroked(text: "5")
+        RoundedTextView(text: "1")
     }
 }
